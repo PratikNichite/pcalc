@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+body {
+  background-color: rgb(34, 34, 34);
+  box-sizing: border-box;
+  /* display: flex; */
+  align-content: center;
+}
+
+/* all the buttons basic formatting */
+.button {
+  background-color: rgb(255, 168, 53);
+  color: white;
+  width: 96px;
+  height: 96px;
+  margin: 1px;
+  font-family: Arial;
+  font-size: 25px;
+  border-radius: 30%;
+  border-width: 5px;
+  outline: none;
+  border-color: black;
+}
+
+/* button hover formatting */
+.button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+/* button active formatting */
+.button:active {
+  background-color: black;
+  color: white;
+}
+
+/* individual button formatting */
+#zero {
+  background-color: rgb(230, 142, 59);
+}
+
+#plus,
+#clear,
+#equal,
+#minus,
+#multiply,
+#division {
+  background-color: black;
+  color: white;
+}
+
+/* individual button hover formatting */
+#zero:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#clear:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#equal:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#plus:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#minus:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#multiply:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+#division:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+
+/* individual active formatting */
+#zero:active {
+  background-color: black;
+  color: white;
+}
+
+#clear:active {
+  background-color: black;
+  color: white;
+}
+
+#equal:active {
+  background-color: black;
+  color: white;
+}
+
+#plus:active {
+  background-color: rgb(78, 78, 78);
+  color: white;
+}
+
+#minus:active {
+  background-color: rgb(78, 78, 78);
+  color: white;
+}
+
+#multiply:active {
+  background-color: rgb(78, 78, 78);
+  color: white;
+}
+
+#division:active {
+  background-color: rgb(78, 78, 78);
+  color: white;
+}
+
+.heading {
+  background-color: white;
+  width: 400px;
+  height: 80px;
+  font-size: 30px;
+  display:grid;
+  text-align: end;
+  align-items:center;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  border-radius: 10px;
+  border-width: 10px;
+  border-color: black;
+  outline: none;
+}
+.calculator-body{
+    display:grid;
+    align-items: center;
+    background-color:gray;
+    border-radius: 15px;
+    outline:none;
+    padding-bottom:10px;
+}
+.top{
+    display:grid;
+    place-items: center;
+    font-family: Aerial;
+    font-size:20px;
+    color: white;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="calculator-body">
+    <div>
+        <p class="top">Calculator By Pralinn</p>
+      <p class="heading" id="heading-title"></p>
+    </div>
+      <div>
+      <button class="button" id="seven">7</button>
+      <button class="button" id="eight">8</button>
+      <button class="button" id="nine">9</button>
+      <button class="button" id="plus">+</button>
+    </div>
+    <div>
+      <button class="button" id="four">4</button>
+      <button class="button" id="five">5</button>
+      <button class="button" id="six">6</button>
+      <button class="button" id="minus">-</button>
+    </div>
+    <div>
+      <button class="button" id="one">1</button>
+      <button class="button" id="two">2</button>
+      <button class="button" id="three">3</button>
+      <button class="button" id="multiply">*</button>
+    </div>
+    <div>
+      <button class="button" id="zero">0</button>
+      <button class="button" id="clear">C</button>
+      <button class="button" id="equal">=</button>
+      <button class="button" id="division">/</button>
+    </div>
+    </div>
+
+    <script>
+        let new_value = 0;
+let old_value = 0;
+let operation = '';
+
+const zero = document.querySelector('#zero');
+const one = document.querySelector('#one');
+const two = document.querySelector('#two');
+const three = document.querySelector('#three');
+const four = document.querySelector('#four');
+const five = document.querySelector('#five');
+const six = document.querySelector('#six');
+const seven = document.querySelector('#seven');
+const eight = document.querySelector('#eight');
+const nine = document.querySelector('#nine');
+const equal = document.querySelector('#equal');
+const clear = document.querySelector('#clear');
+const division = document.querySelector('#division');
+const multiply = document.querySelector('#multiply');
+const add = document.querySelector('#add');
+const minus = document.querySelector('#minus');
+
+const heading = document.querySelector('#heading-title');
+
+const write_result = function (val) {
+  heading.textContent += val;
+};
+
+function calc(firstValue, optn, secondValue) {
+  let result = 0;
+  switch (optn) {
+    case '+':
+      result = Number(firstValue) + Number(secondValue);
+      break;
+    case '-':
+      result = Number(firstValue) - Number(secondValue);
+      break;
+    case '*':
+      result = Number(firstValue) * Number(secondValue);
+      break;
+    case '/':
+      result = Number(firstValue) / Number(secondValue);
+      break;
+  }
+  return result;
+}
+
+function checkZero(){
+    if (heading.textContent === "0") heading.textContent = "";
+};
+
+zero.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 0;
+});
+one.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 1;
+});
+two.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 2;
+});
+three.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 3;
+});
+four.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 4;
+});
+five.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 5;
+});
+six.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 6;
+});
+seven.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 7;
+});
+eight.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 8;
+});
+nine.addEventListener('click', function () {
+  checkZero();
+  heading.textContent += 9;
+});
+
+plus.addEventListener('click', function () {
+  checkZero();
+  if (operation === '') {
+      if(heading.textContent !== ''){
+    old_value = Number(heading.textContent);
+    operation = '+';
+    };
+    heading.textContent = '';
+  } else {
+    new_value = Number(heading.textContent);
+    heading.textContent = calc(old_value, operation, new_value);
+  }
+});
+minus.addEventListener('click', function () {
+  checkZero();
+  if (operation === '') {
+      if(heading.textContent !== ''){
+    old_value = Number(heading.textContent);
+    operation = '-';
+    };
+    heading.textContent = '';
+  } else {
+    new_value = Number(heading.textContent);
+    heading.textContent = calc(old_value, operation, new_value);
+  }
+});
+multiply.addEventListener('click', function () {
+  checkZero();
+  if (operation === '') {
+    if(heading.textContent !== ''){
+    old_value = Number(heading.textContent);
+    operation = '*';
+    };
+    heading.textContent = '';
+  } else {
+    new_value = Number(heading.textContent);
+    heading.textContent = calc(old_value, operation, new_value);
+  }
+});
+division.addEventListener('click', function () {
+  checkZero();
+  if (operation === '') {
+    if(heading.textContent !== ''){
+    old_value = Number(heading.textContent);
+    operation = '/';
+    };
+    heading.textContent = '';
+  } else {
+    new_value = Number(heading.textContent);
+    heading.textContent = calc(old_value, operation, new_value);
+  }
+});
+clear.addEventListener('click', function () {
+  heading.textContent = '';
+  old_value = 0;
+  new_value = 0;
+  operation = '';
+});
+equal.addEventListener('click', function () {
+  if(operation !== '' && (old_value === 0 && new_value === 0)){
+      heading.textContent = 0;
+      
+  }else if (operation !== '') {
+    new_value = Number(heading.textContent);
+    heading.textContent = calc(old_value, operation, new_value);
+    operation = '';
+  } else {
+    old_value = Number(heading.textContent);
+    new_value = 0;
+  }
+});
+
+    </script>
+  </body>
+</html>
